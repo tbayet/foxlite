@@ -8,8 +8,8 @@
         <b-nav-form>
           <b-form-select
             :value="selected"
-            :options="users"
-            @change="onUserChange($event)"
+            :options="merchants"
+            @change="onMerchantChange($event)"
           />
         </b-nav-form>
       </b-navbar-nav>
@@ -28,14 +28,14 @@ export default {
     }
   },
   computed: {
-    users () { return [''].concat(this.$store.state.users.list) },
-    selected () { return this.$store.state.users.current }
+    merchants () { return [''].concat(this.$store.state.merchant.list) },
+    selected () { return this.$store.state.merchant.current }
   },
   methods: {
     ...mapActions({
-      logIn: 'users/login'
+      logIn: 'merchant/login'
     }),
-    onUserChange (name) {
+    onMerchantChange (name) {
       this.logIn(name)
       this.$router.push('/market')
     }

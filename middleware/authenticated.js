@@ -1,15 +1,15 @@
 export default function ({ store, route, redirect }) {
-  const userLogged = store.state.users.current
+  const merchantLogged = store.state.merchant.current
   const routePath = route.path.split('/').filter(e => e.length)
-  // if router area is reserved for logged users
+  // if router area is reserved for logged merchants
   // console.log('MIDDLEWARE::authenticated')
   if (routePath.length && ['market'].includes(routePath[0])) {
-    if (!userLogged) {
+    if (!merchantLogged) {
       redirect('/')
-    } else if (routePath.length === 1 || routePath[1] !== userLogged) {
-      redirect(`/${routePath[0]}/${userLogged}`)
+    } else if (routePath.length === 1 || routePath[1] !== merchantLogged) {
+      redirect(`/${routePath[0]}/${merchantLogged}`)
     }
-  } else if (!routePath.length && userLogged) {
-    redirect(`/market/${userLogged}`)
+  } else if (!routePath.length && merchantLogged) {
+    redirect(`/market/${merchantLogged}`)
   }
 }
