@@ -6,7 +6,7 @@
         :options="years"
         buttons
         button-variant="outline-primary"
-        @change="onYearChange"
+        @change="onYearChange($event)"
       />
     </b-form-group>
     <b-tabs
@@ -17,10 +17,8 @@
       nav-class="market__tabs bg-transparent"
       content-class="market__content bg-white"
     >
-      <b-tab title="Tab name" active>
-        <b-card-text v-if="!loading">
-          Tab Content
-        </b-card-text>
+      <b-tab title="Data Table" active>
+        <WidgetDataTable v-if="!loading" :data="data" />
       </b-tab>
       <b-tab title="Tab namfe">
         <b-card-text v-if="!loading">
@@ -32,7 +30,12 @@
 </template>
 
 <script>
+import WidgetDataTable from '~/components/widgetDataTable'
+
 export default {
+  components: {
+    WidgetDataTable
+  },
   middleware: 'authenticated',
   data () {
     return {
@@ -48,8 +51,8 @@ export default {
     return { years: years.sort((a, b) => a - b), year: years[years.length - 1] }
   },
   methods: {
-    onYearChange () {
-      this.$store.dispatch('data/load', { year: this.year, merchant: this.$route.params.merchant })
+    onYearChange (year) {
+      this.$store.dispatch('data/load', { year, merchant: this.$route.params.merchant })
     }
   }
 }

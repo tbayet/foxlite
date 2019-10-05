@@ -4,8 +4,8 @@ const formatData = (merchantYearRevenues, marketYearRevenues) => {
   const marketShare = (merchantRevenue, marketRevenue) => ((merchantRevenue / marketRevenue) * 100).toFixed(2)
   const labelToMonth = label => MONTH_STR[parseInt(label.split('.')[1], 10) - 1]
   return merchantYearRevenues.values.map(merchantRevenue => ({
-    label: merchantRevenue.label,
-    title: labelToMonth(merchantRevenue.label),
+    index: parseInt(merchantRevenue.label.split('.')[1], 10) - 1,
+    period: labelToMonth(merchantRevenue.label),
     value: marketShare(merchantRevenue.value, marketYearRevenues.values.find(marketRevenu => marketRevenu.label === merchantRevenue.label).value)
   }))
 }
