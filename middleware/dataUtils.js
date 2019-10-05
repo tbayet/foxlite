@@ -7,7 +7,7 @@ const formatData = (merchantYearRevenues, marketYearRevenues) => {
     index: parseInt(merchantRevenue.label.split('.')[1], 10) - 1,
     period: labelToMonth(merchantRevenue.label),
     value: marketShare(merchantRevenue.value, marketYearRevenues.values.find(marketRevenu => marketRevenu.label === merchantRevenue.label).value)
-  }))
+  })).sort((a, b) => a.index - b.index)
 }
 
 export default formatData

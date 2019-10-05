@@ -20,10 +20,8 @@
       <b-tab title="Data Table" active>
         <WidgetDataTable v-if="!loading" :data="data" />
       </b-tab>
-      <b-tab title="Tab namfe">
-        <b-card-text v-if="!loading">
-          Tab Content
-        </b-card-text>
+      <b-tab title="Line Chart">
+        <WidgetLineChart v-if="!loading" :data="data" />
       </b-tab>
     </b-tabs>
   </b-card>
@@ -31,10 +29,12 @@
 
 <script>
 import WidgetDataTable from '~/components/widgetDataTable'
+import WidgetLineChart from '~/components/WidgetLineChart'
 
 export default {
   components: {
-    WidgetDataTable
+    WidgetDataTable,
+    WidgetLineChart
   },
   middleware: 'authenticated',
   data () {
