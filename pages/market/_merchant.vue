@@ -14,31 +14,46 @@
       card
       vertical
       class="market__container"
-      nav-class="market__tabs bg-transparent"
-      content-class="market__content bg-white"
+      nav-class="bg-transparent"
+      content-class="bg-white"
     >
-      <b-tab title="Data Table" active>
-        <WidgetDataTable v-if="!loading" :data="data" />
-      </b-tab>
-      <b-tab title="Line Chart">
-        <WidgetLineChart v-if="!loading" :data="data" />
+      <b-tab
+        v-for="(widget, i) in widgets"
+        :key="i"
+        :title="widget.title"
+      >
+        <TransitionFade v-if="!loading">
+          <component :is="widget.component" :data="data" />
+        </TransitionFade>
+        <Loader v-else />
       </b-tab>
     </b-tabs>
   </b-card>
 </template>
 
 <script>
+import TransitionFade from '~/components/transitionFade'
 import WidgetDataTable from '~/components/widgetDataTable'
 import WidgetLineChart from '~/components/WidgetLineChart'
+import Loader from '~/components/loader'
 
 export default {
   components: {
-    WidgetDataTable,
-    WidgetLineChart
+    TransitionFade,
+    Loader
   },
   middleware: 'authenticated',
   data () {
     return {
+      widgets: [
+        {
+          title: 'Data Table',
+          component: WidgetDataTable
+        }, {
+          title: 'Line Chart',
+          component: WidgetLineChart
+        }
+      ]
     }
   },
   computed: {

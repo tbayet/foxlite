@@ -4,10 +4,7 @@
 
 <script>
 import Highcharts from 'highcharts'
-import loadMap from 'highcharts/modules/map.js'
 import { genComponent } from 'vue-highcharts'
-
-loadMap(Highcharts)
 
 export default {
   name: 'WidgetLineChart',
