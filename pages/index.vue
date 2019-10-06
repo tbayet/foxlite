@@ -1,7 +1,10 @@
 <template>
   <div class="container">
+    <p class="arrow title">
+      &#8599;
+    </p>
     <p class="title">
-      Select a Compagny
+      Please log into your Merchant account
     </p>
   </div>
 </template>
@@ -22,7 +25,11 @@ export default {
   align-items: center;
   text-align: center;
 }
-
+.arrow {
+  position: absolute;
+  top: 10vh;
+  right: 20vw;
+}
 .title {
   font-family: var(--font-title);
   display: block;

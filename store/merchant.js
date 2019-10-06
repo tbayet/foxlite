@@ -15,12 +15,12 @@ export const mutations = {
 export const actions = {
   login ({ state, dispatch, commit }, merchant) {
     if (state.merchant === merchant) {
-      // pushNotification(`You're already logged in (${merchant})`)
+      dispatch('notification/push', { type: 'danger', message: `You're already logged in (${merchant})` }, { root: true })
     } else if (merchant === '' || state.list.find(u => u === merchant)) {
       commit('login', merchant)
-      // pushNotification({ message: `${merchant}: You are correctly logged in`, type: 'success' })
+      merchant !== '' && dispatch('notification/push', { type: 'success', message: `${merchant}: You are correctly logged in` }, { root: true })
     } else {
-      // pushNotification(`This merchant doesn't exists: ${merchant}`)
+      dispatch('notification/push', { type: 'danger', message: `This merchant doesn't exists: ${merchant}` }, { root: true })
     }
   }
 }

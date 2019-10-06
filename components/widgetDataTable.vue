@@ -29,7 +29,7 @@ export default {
           key: 'value',
           label: 'Market share',
           sortable: true,
-          formatter: value => `${value} %`
+          formatter: value => (value !== 'Infinity') ? `${value} %` : 'no-information'
         }
       ]
     }
@@ -46,6 +46,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-</style>

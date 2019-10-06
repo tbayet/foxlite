@@ -23,7 +23,10 @@
         :title="widget.title"
       >
         <TransitionFade v-if="!loading">
-          <component :is="widget.component" :data="data" />
+          <component :is="widget.component" v-if="data[0] != null" :data="data" />
+          <p v-else>
+            No data for this year
+          </p>
         </TransitionFade>
         <Loader v-else />
       </b-tab>
@@ -61,9 +64,14 @@ export default {
     loading () { return !this.data || !this.data.length }
   },
   async asyncData ({ $axios, store, route }) {
-    const years = await $axios.$get('/api/years')
-    store.dispatch('data/load', { year: years[years.length - 1], merchant: route.params.merchant })
-    return { years: years.sort((a, b) => a - b), year: years[years.length - 1] }
+    try {
+      const years = await $axios.$get('/api/years')
+      store.dispatch('data/load', { year: years[years.length - 1], merchant: route.params.merchant })
+      return { years: years.sort((a, b) => a - b), year: years[years.length - 1] }
+    } catch (err) {
+      store.dispatch('notification/push', { type: 'danger', message: `Sorry! We have a problem with the server` })
+      return false
+    }
   },
   methods: {
     onYearChange (year) {
