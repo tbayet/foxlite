@@ -37,7 +37,7 @@
 <script>
 import TransitionFade from '~/components/transitionFade'
 import WidgetDataTable from '~/components/widgetDataTable'
-import WidgetLineChart from '~/components/WidgetLineChart'
+import WidgetLineChart from '~/components/widgetLineChart'
 import Loader from '~/components/loader'
 
 export default {
